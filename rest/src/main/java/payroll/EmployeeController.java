@@ -2,6 +2,8 @@ package payroll;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +42,14 @@ class EmployeeController {
 				.collect(Collectors.toList());
 
 		return CollectionModel.of(employees, linkTo(methodOn(EmployeeController.class).all()).withSelfRel());
+	}
+
+	// tag::get-aggregate-root[]
+	@GetMapping("/phuong")
+	String showHappyDay() {
+		String dayNames[] = new DateFormatSymbols().getWeekdays();
+		Calendar date2 = Calendar.getInstance();
+		return "Bon "+ dayNames[date2.get(Calendar.DAY_OF_WEEK)];
 	}
 	// end::get-aggregate-root[]
 
